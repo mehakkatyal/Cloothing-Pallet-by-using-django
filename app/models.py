@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class userprofile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE, null=True)
@@ -74,3 +75,11 @@ class ordernow(models.Model):
     stock = models.IntegerField(null=True, blank=True)
     def __str__(self):
         return str.title()
+class bag(models.Model):
+    product=models.ForeignKey(product,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    qu=models.IntegerField(null=True)
+    date=models.DateField(default=datetime.date.today,null=True)
+
+    def __str__(self):
+        return super().__str__()

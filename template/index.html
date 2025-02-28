@@ -211,6 +211,8 @@
     {% if user.userprofile.is_vendor%}
     <button><a href="createpage">create category</a></button>
     {%endif%}
+    <button><a href="/bag/{{product.id}}"><i class="fa-solid fa-cart-shopping"></i>Cart</a></button>
+
     </div>
 
     </div>
@@ -232,6 +234,7 @@
                <a href="/sub_cat/{{category.id}}">add sub</a>
             {%endif%}
             {% endfor %}
+            
         </div>
         
     </div>

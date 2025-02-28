@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect,redirect
-from app.models import userprofile,cat,sub_cat,product,ProductImage,ordernow
+from app.models import userprofile,cat,sub_cat,product,ProductImage,ordernow,bag
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -18,6 +18,10 @@ class subcatViewset(ModelViewSet):
 class UserViewset(ModelViewSet):
     queryset= User.objects.all()
     serializer_class=Userserializer
+
+class CategoryViewSet(ModelViewSet):
+    queryset = cat.objects.all()
+    serializer_class = CategorySerializer
 
 
 
@@ -257,10 +261,22 @@ def order_now(request, id):
 
 
    
-def bag(request,id):
-    pro=product.objects.get(id=id)
-    return render(request,'add_bag.html',{'product':pro})
-
+def addbag(request,id):
+    products=product.objects.get(id=id)
+    qu=request.POST.get('qu')
+    date=request.POST.get('date')
+    if product.stock==0:
+        print("No stock available")
+    else:
+        print("stock is available")
+    bags=bag.objects.create(
+        user=request.user,
+        product=products,
+        qu=qu,
+        date=date
+    )
+    bags.save()
+    return render(request,'add_bag.html',{'product':products})
 def canfirm_booking(request,id):
     order = ordernow.objects.get(id=id)
     order.status="canfirmed"

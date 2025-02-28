@@ -3,8 +3,15 @@ from app.models import *
 from django.contrib.auth.models import User
 
 
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = cat
+        fields = '__all__'
+
+
 class productserializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(view_name='user-detail', read_only=True)
+    # user = serializers.HyperlinkedRelatedField(view_name='user-detail', read_only=True)
+    id = serializers.ReadOnlyField()
     class Meta:
         model = product
         fields = '__all__'

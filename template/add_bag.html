@@ -99,6 +99,14 @@ h1 {
              <div class="p_price">
                 <p>{{product.product_price}}</p>
              </div>  
+             <div  class="key">
+                <label for="quantity">Quantity:</label>
+            </div>
+            <div class="val">
+                <input type="number" name="quantity" value="1" min="1">
+            </div>
+
+             </div>
              <div class="bu">
                 <a href="/order_now/{{product.id}}">Order Now</a>
                 <a href="/cancel/{{order.id}}"><i class="fa-solid fa-trash"></i></a>

@@ -75,6 +75,7 @@ router = routers.DefaultRouter()  # Now you can use routers here
 router.register(r'product', productViewset,basename='product')
 router.register(r'sub_cat', subcatViewset,basename='sub_cat')
 router.register(r'user', UserViewset)
+router.register('category',CategoryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -90,7 +91,7 @@ urlpatterns = [
     path('show_pro/<int:id>/', show_pro),
     path('pro_detail/<int:id>/', pro_detail),
     path('order_now/<int:id>/', order_now),
-    path('bag/<int:id>/', bag),
+    path('bag/<int:id>/', addbag),
     path('booking/<int:id>/', canfirm_booking),
     path('order_history/<int:id>/', order_history),
     path('cancel/<int:id>/', cancelbooking),

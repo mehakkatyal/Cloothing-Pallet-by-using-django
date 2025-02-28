@@ -1,0 +1,122 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'index.css' %}"> -->
+    <title>Document</title>
+    <style>
+        /* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.about {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.heading {
+    text-align: center;
+    padding: 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-top: 10px;
+}
+
+/* Box for the paragraph */
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.paragraph {
+    background-color: white;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect on the paragraph box */
+.paragraph:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* Styling for the paragraph text */
+p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+/* Styling for the author */
+h3 {
+    color: #3498db;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    .paragraph {
+        padding: 20px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="about">
+        <div class="heading">
+            <h1>Cloothing Pallet</h1>
+            <h2>About Us</h2>
+        </div>
+        <div class="box">
+            <div class="paragraph">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quas magnam qui omnis maiores quidem minus nulla, earum sequi cum, ipsa, quos eius! Incidunt inventore reiciendis provident minima veniam ad!</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolorum reprehenderit, accusantium voluptatum facilis cumque impedit, ab voluptas facere cum dolor, corporis nam. Est dignissimos explicabo, similique fugit velit perferendis!</p>
+                <h3>By: Mehak</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

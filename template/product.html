@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required> <br>  <br> 
+
+         <label for="product_dis">Product Description:</label> 
+        <input type="text" id="product_dis" name="product_dis" required> <br>  <br> 
+
+        <label for="product_price">Product Price:</label>
+        <input type="number" id="product_price" name="product_price" required> <br>  <br> 
+
+        <label for="product_size">product_size</label>
+        <input type="number" id="product_size" name="product_size"> <br>  <br> 
+
+        <label for="product_color">product_color</label>
+        <input type="text" id="product_color" name="product_color"> <br>  <br> 
+
+        <label for="product_type">product_type</label>
+        <input type="text" id="product_type" name="product_type"><br><br>
+
+        <label for="product_seleve">product_seleve</label>
+        <input type="text"  id="product_seleve" name="product_seleve"><br><br>
+
+        <label for="product_fit">product_fit</label>
+        <input type="text" id="product_fit" name="product_fit"> <br>  <br> 
+
+        <label for="packof">packof</label>
+        <input type="text" id="packof" name="packof"> <br>  <br> 
+
+        <label for="fabric">fabric</label>
+        <input type="text" id="fabric" name="fabric"> <br>  <br> 
+
+        <label for="stock">Stock</label>
+        <input type="text" id="stock" name="stock"><br><br>
+
+       
+        <label for="images">Upload Images</label><br>
+        <input type="file" name="images" accept="image/*" multiple> <br>  <br> 
+
+    
+    
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html>

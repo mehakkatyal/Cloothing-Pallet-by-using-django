@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Now</title>
+    <style>
+     body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Heading style */
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2C3E50; /* Dark Blue-Grey color */
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 50px;
+            margin-bottom: -15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        h1:hover {
+            color: #4e73df; /* Blue color */
+            transform: scale(1.05); /* Slight zoom effect */
+            text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+        }
+
+        /* Subheading styling */
+        h2 {
+            font-size: 24px;
+            color:black;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Container for form */
+        .value {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color:  aliceblue;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Form row styling */
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        .key {
+            font-size: 18px;
+            color: #34495e;
+            width: 40%;
+            display: flex;
+            align-items: center;
+        }
+        .val {
+            width: 55%;
+        }
+
+        /* Input and select styling */
+        input[type="number"], input[type="text"], select {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 26px;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            border-color: #4e73df;
+            outline: none;
+        }
+
+        /* Submit button styling */
+        .bu {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .bu input[type="submit"] {
+            background-color: #4e73df;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bu input[type="submit"]:hover {
+            background-color: #357ae8;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div class="heading">
+        <h1>Cloothing Pallet</h1>
+       
+    </div>
+    <div class="value">
+        <h2>{{ product.product_name }}</h2>
+        <p>Price: {{ product.product_price }}</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div  class="key">
+                    <label for="quantity">Quantity:</label>
+                </div>
+                <div class="val">
+                    <input type="number" name="quantity" value="1" min="1">
+                </div>
+            </div>
+            <div class="row">
+                <div  class="key"> 
+                    <label for="shipping_adress">Shipping Address:</label>     
+                </div>
+                <div class="val">
+                    <input type="text" name="shipping_adress" required>
+                </div>
+            </div>
+            <div class="row">
+                <div  class="key"> 
+                    <label for="payment_method">Choose Payment Method:</label>
+                <div class="val">
+                    <select name="payment_method" required>
+                        <option value="credit card">Credit Card</option>
+                        <option value="phone pay">Phone Pay</option>
+                        <option value="bank transfer">Bank Transfer</option>
+                        <option value="COD">Cash on Delivery</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div clas="bu">
+                <input type="submit" value="Order Now">
+            </div>          
+        </div>
+     
+    </form>
+</body>
+</html>

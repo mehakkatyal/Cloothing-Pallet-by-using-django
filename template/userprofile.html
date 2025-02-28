@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        /* Basic styles for the order list */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4e73df;
+        }
+        .order-container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .order {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+        }
+        .order:last-child {
+            border-bottom: none;
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        .order-status {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+        .order-info {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        .val {
+  
+                margin-left: 100px;
+                background-color: lightsteelblue;
+                
+                margin-right: 101px;
+                border-radius: 9px;
+            }
+            p {
+                    margin: 15px;
+                    padding-bottom: 10px;
+                    padding-top: 10px;
+              }
+              img {
+                    height: 109px;
+                    width: 143px;
+                    border-radius: 10px;
+                    object-fit: contain;
+}
+              
+    </style>
+</head>
+<body>
+    <h1>Your Order History</h1>
+    <div class="val">
+        <p><strong>User Name:-</strong>{{user.username}}</p>
+        <p><strong>User Last Name:-</strong>{{user.last_name}}</p>
+        <p><strong>Phone number:-</strong>{{user.userprofile.phonenumber}}</p>
+      
+
+    </div>
+      <!-- <div class="can">
+        <a href="/cancel/{{order.id}}">Cancel booking</a><br><br>
+       </div> -->
+
+    
+
+    <div class="order-container">
+        {% for orders in page_obj %}
+            
+            <div class="order">
+                <div class="order-details">
+                    <div class="img">
+                        {% if orders.product.images.exists %}
+                                <img src="{{ orders.product.images.first.image.url }}" alt="Product Image">
+                        {% else %}
+                        <p>No image available</p>
+                        {% endif %}
+                        </div>
+                    <div class="order-info">
+                        <strong>Product Name:</strong> {{ orders.product.product_name }}<br>
+                        <strong>Quantity:</strong> {{ orders.quantity }}<br>
+                        <strong>Total Price:</strong> ${{ orders.total_price }}<br>
+                        <strong>Shipping Address:</strong> {{ orders.shipping_adress }}<br>
+                        <strong>Payment Method:</strong> {{ orders.payment_method }}<br>
+                    </div>
+                
+                    <div class="order-status">
+                        Status: <span>{{ orders.status|title }}</span>
+                    </div>
+                    <div class="can">
+                        <a href="/cancel/{{order.id}}">Cancel booking</a><br><br>
+                       </div>
+                   
+                    
+                  
+                                        
+                </div>
+            </div>
+           
+        {% empty %}
+            <p>You haven't placed any orders yet.</p>
+        {% endfor %}
+    </div>
+  
+
+        <div class="pagination">
+            
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                   <a href="?page=1">first</a>
+                   <a href="?page={{page_obj.previous_page_number}}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    page{{page_obj.number}} of{{page_obj.paginator.num_pages}}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                {% endif %}
+
+
+            </span>
+        </div>
+</body>
+</html>

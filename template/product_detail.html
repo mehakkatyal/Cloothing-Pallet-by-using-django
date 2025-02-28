@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>product_detail</title>
+</head>
+<body>
+   
+   
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-detail {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Product Images */
+        .product-images {
+            width: 45%;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .product-images img {
+            width: 48%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            object-fit: cover;
+        }
+
+        .product-images img:hover {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        /* Product Information */
+        .product-info {
+            width: 50%;
+        }
+
+        .product-info h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            color: #e76f51;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Add to Cart & Buy Now Buttons */
+        .product-info .p_bu {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-info a {
+            padding: 12px 20px;
+            background-color: #4e73df;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-info a:hover {
+            background-color: #2e59d9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-images, .product-info {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .product-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .price {
+                font-size: 1.4rem;
+            }
+
+            .product-info .p_bu {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        .p_name {
+           text-align: center;
+           font: bolder;
+           font-size: 16px;
+           font-weight: bold;
+           color: #2C3E50;
+           text-align: center;
+           margin-top: 50px;
+           margin-bottom: 30px;
+           text-transform: uppercase;
+           letter-spacing: 4px;
+           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+           transition: all 0.3s ease;
+        }
+        .fa-solid.fa-cart-shopping {
+             margin-right: 10px;
+        }
+        .row{
+        display: flex;
+        /* border-bottom: 1px solid grey; */
+        padding: 3px;
+        /* justify-content: space-between; */
+        /* width: 80%; */
+    }
+    .key{
+        font-weight: bold;
+        color: grey;
+        width: 20%;
+        /* text-align: right; */
+        /* margin-right: 20px; */
+    }
+    .value{
+        width: 25%;
+        font-size: 18px;
+        padding-left: 121px;
+    }
+    h3 {
+  padding-top: 22px;
+}
+h1{
+    text-align: center;
+           font: bolder;
+           font-size: 50px;
+           font-weight: bold;
+           color: #2C3E50;
+           text-align: center;
+           margin-top: 0px; 
+           margin-bottom: 10px;
+           text-transform: uppercase;
+           letter-spacing: 4px;
+           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+           transition: all 0.3s ease;
+        }
+        h2 {
+                margin-left: 126px;
+                margin-top: -43px;
+                /* margin-bottom: 14px; */
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>
+        Cloothing pallet
+    </h1>
+      <!-- <div class="p_name">
+          <h1>{{ product.product_name }}</h1>
+      </div> -->
+    <div class="product-detail">
+        <!-- Product Images -->
+        <div class="p_name">
+             <h2>{{ product.product_name }}</h2>
+        </div>
+        <div class="product-images">
+            {% for image in product.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ product.product_name }}">
+            {% endfor %}
+        </div>
+
+        <!-- Product Information -->
+        <div class="product-info">
+            <!-- <div class="p_name">
+               <h2>{{ product.product_name }}</h2>
+            </div> -->
+               <div class="p_dis">
+                   <p><strong>Product Description:</strong> {{ product.product_dis }}</p>
+               </div>
+                  <div class="p_color">
+                     <p><strong>Color:</strong> {{ product.product_color }}</p>
+                  </div>
+                    <div class="p_size">
+                       <p><strong>Size:</strong> {{ product.product_size }}</p>
+                    </div>
+                       <div class="p_price">
+                          <p class="price">Price: ${{ product.product_price }}</p>
+                       </div>
+                       <div class="product_detail">
+                           <h3>Product Details</h3>
+                           <div class="row">
+                                <div class="key">
+                                    <p><strong>Type</strong></p>
+                                </div>
+                                <div class="value">
+                                    <p><strong>{{product.product_type}}</strong></p>
+                                </div>
+                           </div>
+                           <div class="row">
+                                <div class="key">
+                                    <p><strong>Seleve</strong></p>
+                                </div>
+                                <div class="value">
+                                    <p><strong>{{product.product_seleve}}</strong></p>
+                                </div>
+                          </div>
+                          <div class="row">
+                                <div class="key">
+                                    <p><strong>Fit</strong></p>
+                                </div>
+                                <div class="value">
+                                    <p><strong>{{product.product_fit}}</strong></p>
+                                </div>
+                          </div>
+                          <div class="row">
+                                <div class="key">
+                                    <p><strong>Pack of</strong></p>
+                                </div>
+                                <div class="value">
+                                    <p><strong>{{product.packof}}</strong></p>
+                                </div>
+                          </div>
+                          <div class="row">
+                                <div class="key">
+                                    <p><strong>Fabric</strong></p>
+                                </div>
+                                <div class="value">
+                                    <p><strong>{{product.fabric}}</strong></p>
+                                </div>
+                          </div>
+                          <div class="row">
+                            <div class="key">
+                                <p><strong>Stock</trong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.stock}}</strong></p>
+                            </div>
+                      </div>
+
+
+
+        
+                       </div>
+
+
+
+                          <div class="p_bu">
+                            
+                            <a href="/bag/{{product.id}}"><i class="fa-solid fa-cart-shopping"></i>Add to cart</a>
+                            <a href="/order_now/{{product.id}}">Buy Now</a>
+                          </div>   
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+   
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createuser</title>
+    <style>
+        h1{
+           text-align: center;
+           font: bolder;
+           font-size: 50px;
+           font-weight: bold;
+           color: #2C3E50;
+           text-align: center;
+           margin-top: 0px; 
+           margin-bottom: 10px;
+           text-transform: uppercase;
+           letter-spacing: 4px;
+           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+           transition: all 0.3s ease;
+        }
+        .main {
+            background: #325d82;
+            margin-right: 335px;
+            margin-left: 336px;
+            text-align: center;
+            /* margin-top: 15px; */
+            /* padding-top: 16pz; */
+            color: white;
+            /* font-size: bold; */
+            font-size: 20px;
+            letter-spacing: 1px;
+            border-radius: 23px;
+            margin-top: 40px;
+        }
+        .h {
+            /* margin-top: 16px; */
+            padding-top: 43px;
+            /* padding-bottom: 18px; */
+            margin-bottom: 18px;
+        }
+        .bu {
+             padding-bottom: 28px;
+        }
+        h2{
+            color: white;
+
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="">
+        {%csrf_token%}
+        <h1>Cloothing pallet</h1>
+        <div class="main">
+            <h2><u>Create a new user</u></h2>
+            <div class="h">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="username"><br><br>
+            </div>
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" placeholder="first_name"><br><br>
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" placeholder="last_name"><br><br>
+            <label for="password">Password</label>
+            <input type="password" name="password"placeholder="password"><br><br>
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="email"><br><br>
+            <label for="phonenumber">Phone number</label>
+            <input type="phonenumber" name="phonenumber" placeholder="phonenumber"><br><br>
+            
+            <label>
+                <input type="radio" name="is_vendor" value="True">is_vendor
+            </label>
+            <label>
+                <input type="radio" name="is_vendor" value="False">Not_vendor
+            </label><br><br>
+            <div class="bu">
+                <input type="submit" name="create" value="create"><br><br>
+            </div>
+        </div>
+
+
+    </form>
+    
+</body>
+</html>

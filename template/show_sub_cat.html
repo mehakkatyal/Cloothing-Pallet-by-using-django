@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sub_cat</title>
+    <style>    /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .main_cat {
+            margin: 40px auto;
+            padding: 0 20px;
+            max-width: 1200px;
+            text-align: center;
+        }
+    
+        .sub_cat {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            background-color: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+    
+        .sub_cat:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    
+        .sub_cat h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+    
+        .sub_cat img {
+            width: 80%; /* Resize image to 80% of the container */
+            height: auto;
+            max-width: 200px; /* Ensure a maximum width */
+            border-radius: 8px;
+            transition: opacity 0.3s ease;
+            margin-bottom: 15px; /* Space between image and text */
+        }
+    
+        .sub_cat img:hover {
+            opacity: 0.8;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sub_cat {
+                width: 100%;
+            }
+    
+            .main_cat {
+                padding: 0 10px;
+            }
+        }
+    
+        /* Button styling */
+        .add_sub_button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+    
+        .add_sub_button:hover {
+            background-color: #224abe;
+            transform: scale(1.05);
+        }
+        h1 {
+        font-size: 48px;
+        font-weight: bold;
+        color: #2C3E50; /* Dark Blue-Grey color */
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    /* Hover effect for <h1> */
+    h1:hover {
+        color: #4e73df; /* Blue color */
+        transform: scale(1.05); /* Slight zoom effect */
+        text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 36px; /* Smaller font size for mobile devices */
+            letter-spacing: 2px;
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+    <h1>Cloothing pallet</h1>
+   
+    <div class="main_cat">
+        {% for cat in sub_cat %}
+    <div class="sub_cat">
+        <h3> <a href="/show_pro/{{cat.id}}/">{{ cat.sub_cat_name }} </a></h3>
+        <!-- <a href="/show_pro/{{cat.id}}"></a> -->
+             {% if cat.sub_cat_pic %}
+             <a href="/show_pro/{{cat.id}}/"> <img src="{{ cat.sub_cat_pic.url }}" alt="{{ cat.sub_cat_name }}"></a>
+             {% endif %}
+    </div>
+        {% if user.userprofile.is_vendor%}
+            <a href="">Edit subcat</a>
+            <a href="">del subcat</a>
+            <a href="/addproduct/{{cat.id }}/">add product</a><br>
+        {%endif%}
+    <!-- <a href="/addproduct/{{sub_cat.id}}">add product</a> -->
+    
+       {% endfor %}
+
+    
+
+
+
+
+
+
+
+
+
+      
+</body>
+</html>

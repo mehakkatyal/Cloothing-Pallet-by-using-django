@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking</title>
+    <style>
+           body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            padding: 24px;
+        }
+
+        .cont {
+            margin: 20px 0;
+            border-radius: 21px;
+            background-color: aliceblue;
+        }
+
+        .cont p {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .cont strong {
+            color: #333;
+        }
+
+        .but {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .but div {
+            margin: 10px;
+            text-align: center;
+        }
+
+        /* .but a, .but button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 200px;
+            box-sizing: border-box;
+        } */
+        .but a, .but button {
+                display: block ruby;
+                padding: 12px 25px;
+                font-size: 16px;
+                text-decoration: none;
+                color: #fff;
+                background-color: #4CAF50;
+                border: none;
+                border-radius: 27px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                width: 100%;
+                max-width: 163px;
+                box-sizing: content-box;
+        }
+
+        .but a:hover, .but button:hover {
+            background-color: #45a049;
+        }
+
+        .can a {
+            background-color: #f44336;
+        }
+
+        .can a:hover {
+            background-color: #d32f2f;
+        }
+
+        .ed a {
+            background-color: #2196F3;
+        }
+
+        .ed a:hover {
+            background-color: #1976D2;
+        }
+
+        .but button a {
+            color: white;
+            text-decoration: none;
+        }
+        h1 {
+        font-size: 48px;
+        font-weight: bold;
+        color: #2C3E50; /* Dark Blue-Grey color */
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-top: 50px;
+        margin-bottom: -15px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    h1:hover {
+        color: #4e73df; /* Blue color */
+        transform: scale(1.05); /* Slight zoom effect */
+        text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    }
+
+    .row{
+        display: flex;
+        border-bottom: 1px solid grey;
+        padding: 10px;
+        /* justify-content: space-between; */
+        /* width: 80%; */
+    }
+    .key{
+        font-weight: bold;
+        color: grey;
+        width: 20%;
+        /* text-align: right; */
+        /* margin-right: 20px; */
+    }
+    .value{
+        width: 80%;
+        font-size: 18px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Cloothing Pallet</h1>
+        <div class="cont_">
+            <h2>Order Confirmation</h2>
+            <div class="sp-table">
+                <div class="row">
+                    <div class="key">
+                        Quantity
+                    </div>
+                    <div class="value">
+                        {{order.quantity}}
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="key">
+                        Product Name
+                    </div>
+                    <div class="value">
+                        {{order.product.product_name}}
+                    </div> 
+                </div>
+                
+                <div class="row">
+                    <div class="key">
+                        Total Price
+                    </div>
+                    <div class="value">
+                        {{order.total_price}}
+                    </div> 
+                </div>
+                
+                <div class="row">
+                    <div class="key">
+                        Payment Method
+                    </div>
+                    <div class="value">
+                        {{order.payment_method}}
+                    </div> 
+                </div>
+                
+                <div class="row">
+                    <div class="key">
+                        Order Status
+                    </div>
+                    <div class="value">
+                        {{order.order_status}}
+                    </div> 
+                </div>                
+
+            </div>
+        </div>
+        <div class="but">
+            <div class="c">
+                <button><a href="/booking/{{order.id}}">canfirm booking</a><br><br>
+            </div>
+   
+           <div class="can">
+            <a href="/cancel/{{order.id}}">Cancel booking</a><br><br>
+           </div>
+           <div class="ed">
+            <a href="">Edit details</a><br><br>
+           </div>
+             
+        </div>
+    </div>
+   
+    
+</body>
+</html>

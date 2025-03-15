@@ -1,11 +1,12 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect,redirect
-from app.models import userprofile,cat,sub_cat,product,ProductImage,ordernow,bag
+from app.models import userprofile,cat,sub_cat,product,ProductImage,ordernow,bag,reviews
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework.viewsets import ModelViewSet
 from.serializers import *
+from django.shortcuts import render, get_object_or_404
 
 
 # fucntion for APIS
@@ -124,7 +125,8 @@ def get_profile(request):
 
 def pro_detail(request, id):
     products = product.objects.get(id=id)
-    return render(request, 'product_detail.html',{'product':products})
+    reviews_list = reviews.objects.filter(product=products)
+    return render(request, 'product_detail.html',{'product':products,'reviews':reviews_list})
 
 def add_product(request, id):
     _subcat = sub_cat.objects.get(id=id)
@@ -183,40 +185,7 @@ def show_pro(request,id):
      page_obj = paginator.get_page(page_number)
      return render(request,'show_product.html',{'page_obj':page_obj})
 
-# def order_now(request, id):
-#     if not request.user.is_authenticated:
-#         return redirect('login') 
-#     pro = product.objects.get(id=id)
-#     total_price = 0
-#     if request.method == "POST":
-#         quantity = int(request.POST.get("quantity", 1)) 
-#         total_price = pro.product_price * quantity  
-#         shipping_adress = request.POST.get('shipping_adress')
-#         payment_method = request.POST.get('payment_method')
-#         status = "pending" 
-#         # stock=request.POST.get('stock')
-#         # stock1=quantity-stock
-#         stock = request.POST.get('stock')
-#         if stock is None:
-#             stock = 0
-#         else:
-#             stock = int(stock)  # Convert stock to integer
 
-#         stock1 = quantity - stock
-#         order_pro = ordernow.objects.create(
-#             user=request.user, 
-#             product=pro,
-#             price=pro.product_price,
-#             status=status,
-#             shipping_adress=shipping_adress,
-#             payment_method=payment_method,
-#             quantity=quantity,
-#             total_price=total_price, 
-#             stock=stock1
-#         )
-#         order_pro.save()
-#         return HttpResponseRedirect(f"/order_history/{order_pro.id}")
-#     return render(request, 'ordernow.html',{'product': pro})
 def order_now(request, id):
     if not request.user.is_authenticated:
         return redirect('login') 
@@ -285,11 +254,6 @@ def canfirm_booking(request,id):
 
 def order_history(request,id):
     order = ordernow.objects.get(id=id) 
-
-
-
-
-
     return render(request, 'canfirmbooking.html' ,{'order':order})
 
 def cancelbooking(request, id):
@@ -317,4 +281,27 @@ def sreach(request):
     return render(request,'search.html',{'products':products,'query':query})
 
 
+def review(request, id):
+    pro = get_object_or_404(product, id=id)
+    review = None  # Initialize review and rating to avoid errors
+    rating = None
+    
+
+    if request.method == 'POST':
+        review = request.POST.get('review')
+        rating = request.POST.get('rating')
+        if review and rating:
+            pr = reviews.objects.create(
+                review=review,
+                rating=rating,
+                product=pro,
+                user=request.user
+            )
+            pr.save()
+
+    return render(request, 'review.html', {'product': pro})
+# def show_rev(request):
+#     r=reviews.objects.all()
+#     # r.save()
+#     return render(request,'product_detail.html',{'r':r})
 

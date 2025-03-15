@@ -78,8 +78,16 @@ class ordernow(models.Model):
 class bag(models.Model):
     product=models.ForeignKey(product,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    qu=models.IntegerField(null=True)
-    date=models.DateField(default=datetime.date.today,null=True)
+    qu=models.IntegerField(null=True,default=1)
+    date=models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return super().__str__()
+class reviews(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(product,on_delete=models.CASCADE)
+    review=models.TextField(max_length=100,null=True)
+    rating=models.IntegerField()
 
     def __str__(self):
         return super().__str__()

@@ -98,5 +98,8 @@ urlpatterns = [
     path('userprofile/', user_profile),
     path('search', sreach),
     path('api/', include(router.urls)),  # Include router URLs
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('review/<int:id>/',review)
+    # path('pro_detail/<int:product_id>/review/<int:review_id>/',review,name='review'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

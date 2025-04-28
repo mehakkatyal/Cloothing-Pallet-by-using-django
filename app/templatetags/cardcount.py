@@ -6,7 +6,7 @@ register=template.Library()
 def addcart(request):
     if not request.user.is_authenticated:
         return 0
-    cart_item=bag.objects.filter(user=request.user)
+    cart_item=bag.objects.filter(user=request.user).count()
 
     return cart_item  
    

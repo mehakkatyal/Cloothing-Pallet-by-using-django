@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>get request javvascrispt</title>
+</head>
+<body>
+    <script>
+        $(document).ready(()=>{
+            $(".get_button").click(()=>{
+                // console.log('clicked')
+                $.ajax({
+                    method:"GET",
+                    url: "http://localhost:8000/api/category/",
+                    success:((res)=>{
+                        console.log(res)
+                        var data=""
+                        res.map((item,index)=>{
+                            // data+=`<p>${item.cat_name}</p>`
+                           
+                            data += `
+                                <div class="category">
+                                    <p>${item.cat_name}</p>
+                                    <img src="${item.cat_pic}" alt="Category Image" style="width: 100px; height: 100px;"/>
+                                </div>
+                            `;
+
+                            
+
+                        })
+                        
+                        $(".show_data").html(data)
+
+                    })
+
+             })
+
+            })
+        })
+
+
+
+    </script>
+
+
+
+
+
+
+    <h1>Ajax page with get request</h1>
+   <input type="button" value="get_category" class="get_button">
+    
+   <div class="show_data">
+
+
+   </div>
+</body>
+</html>

@@ -24,7 +24,7 @@ class sub_cat(models.Model):
     
 
     def __str__(self):
-        return str.title()
+        return self.sub_cat_name.title()
 class product(models.Model):
     sub_cat=models.ForeignKey(sub_cat,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -42,7 +42,7 @@ class product(models.Model):
     stock=models.IntegerField(null=True)
    
     def __str__(self):
-        return str.title()
+        return self.product_name
 
 class ProductImage(models.Model):
     product_detail = models.ForeignKey(product, on_delete=models.CASCADE, related_name='images')

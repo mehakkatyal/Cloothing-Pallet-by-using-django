@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST method</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<body>
+    <div>
+        <button id="add_review">Add Review</button>
+    </div>
+    <scrip type="text/template" id="review-sr">
+        <div>
+            <form method="POST" id="review_form">
+                {% csrf_token %}
+                <label for="product_id">Product_id</label>
+                <input type="number" name="product_id" id="product_id"><br><br>
+
+                <label for="rating">Rating</label>
+                <input type="number" name="rating" id="rating"><br><br>
+
+                <label for="review">Review</label>
+                <input type="text" name="review" id="review">
+
+                <button type="submit" id="submit_review"></button>
+            </form>
+
+        </div>
+
+    </scrip>
+   
+    <script>
+        $(document).ready(()=>{
+            $('#add_review').click(()=>{
+                $('.show_review').html(_.template($("#review_sr").html()));
+            })
+
+
+
+            // $(".post_button").click(()=>{
+            //     const rating = $('#rating').val()
+            //     const review = $('#review').val()
+            //     const product_id = $('#product').val()
+            //     // const user = $('#user').val()
+
+            //     // console.log("Rating",rating)
+            //     $.ajax({
+            //         method:"POST",
+            //         url:"http://localhost:8000/api/review/",
+            //         data:JSON.stringify({
+            //             rating:rating,
+            //             review:review,
+            //             product_id:product_id,
+            //             // user:user
+
+            //         }),
+            //             contentType :' application/json',
+            //             headers:{
+            //                 'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+            //          },
+            //          success:(res) =>{
+            //              console.log(res)
+            //          }
+
+
+            //         })
+
+            //     })
+            })
+
+    </script>
+    <div class="show_review">
+
+    </div>
+
+</body>
+</html>

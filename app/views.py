@@ -5,30 +5,138 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListAPIView
 from.serializers import *
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import action
+# Genric view set 
+class CatBySubCat(ListAPIView):
+    queryset = sub_cat.objects.all()
+    serializer_class = SubCategoryByCategory
 
+    def get(self, request, *args, **kwargs):
+        _id = kwargs['id']
+        sub = sub_cat.objects.filter(cat_id = _id)
+        serializer=SubCategoryByCategory(sub,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    #(Retrieve function)dynamic url api
+
+class SubCategoryByCategoryViewset(ModelViewSet):
+    queryset = sub_cat.objects.all()
+    serializer_class = SubCategoryByCategory
+
+    def retrieve(self, request, *args, **kwargs):
+        _id = kwargs['pk']
+        sub = sub_cat.objects.filter(cat_id = _id)
+        serializer=SubCategoryByCategory(sub,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+        
 
 # fucntion for APIS
 class productViewset(ModelViewSet):
     queryset = product.objects.all()
     serializer_class = productserializer
+
 class subcatViewset(ModelViewSet):
     queryset=sub_cat.objects.all()
     serializer_class=subcatserializer
+
 class UserViewset(ModelViewSet):
     queryset= User.objects.all()
     serializer_class=Userserializer
 
+#(Retrieve function)dynamic url api
+
+class SubCategoryByCategoryViewset(ModelViewSet):
+    queryset = sub_cat.objects.all()
+    serializer_class = SubCategoryByCategory
+
+    def retrieve(self, request, *args, **kwargs):
+        _id = kwargs['pk']
+        sub = sub_cat.objects.filter(cat_id = _id)
+        serializer=SubCategoryByCategory(sub,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+        
+
+class ProductImageviewset(ModelViewSet):
+    queryset=ProductImage.objects.all()
+    serializer_class=ProductImageSerializer
+    def create(self,request,*args,**kwargs):
+        product_id=request.data.get('product_id')
+        # product=request.data.get('product')
+
+        images=request.FILES.getlist('file')
+
+        uploded_img=[]
+        product_detail =product.objects.get(id=product_id)
+
+        # breakpoint()
+
+        for img in images:
+            image_obj=ProductImage.objects.create(product_detail=product_detail, image=img)
+            image_obj.save()
+            uploded_img.append(image_obj)
+        breakpoint()
+        serializer=ProductImageSerializer(uploded_img,many=True)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+class reviewViewset(ModelViewSet):
+    queryset=reviews.objects.all()
+    serializer_class=reviewserializer
+
+    def create(self, request, *args, **kwargs):
+         review = request.data['review']
+         rating = request.data['rating']
+         product_id = request.data['product_id']
+         
+         print(review,rating,product_id)
+         review = reviews.objects.create(
+             product_id = product_id,
+             user_id = 14,
+             review = review,
+             rating = rating
+         )
+         review.save()
+ 
+         s = reviewserializer(review)
+         return Response(s.data,status=status.HTTP_201_CREATED)
+    
+    
+
+    # def list(self, request, *args, **kwargs):
+    #     breakpoint()
+    #     print(request)
+    #     review = reviews.objects.all()
+    #     rvs = reviewserializer(review,many=True)
+    #     return Response(rvs.data,status=status.HTTP_200_OK)
+    
 class CategoryViewSet(ModelViewSet):
     queryset = cat.objects.all()
     serializer_class = CategorySerializer
+    # breakpoint()
+    def create(self,request,*args,**kwargs):
+        cat_name=request.data.get('cat_name')
+        cat_pic=request.FILES.get('file')
+
+        category=cat.objects.create(
+            cat_name=cat_name,
+            cat_pic=cat_pic,
+            user_id=14
+        )
+        category.save()
+
+        c=CategorySerializer(category)
+        return Response(c.data,status=status.HTTP_201_CREATED)
 
 
 
 
-
-
+    
 def homepage(request):
     category=cat.objects.all()
     return render(request,'index.html',{'cat':category,'user':request.user})
@@ -165,6 +273,7 @@ def add_product(request, id):
         
         
         products.save()
+        
         # if request.FILES.getlist('images'):
         for image_file in request.FILES.getlist('images'):
             images = ProductImage.objects.create(
@@ -178,7 +287,7 @@ def add_product(request, id):
     
     return render(request, "product.html")
 def show_pro(request,id):
-    #  sub_category = sub_cat.objects.get(id=id)
+    #  sub_category  breakpoint()
      products = product.objects.filter(sub_cat_id = id)
      paginator=Paginator(products,1)
      page_number=request.GET.get('page')
@@ -242,7 +351,7 @@ def addbag(request,id):
         user=request.user,
         product=products,
         qu=qu,
-        date=date
+        # date=date
     )
     bags.save()
     return render(request,'add_bag.html',{'product':products})
@@ -281,27 +390,42 @@ def sreach(request):
     return render(request,'search.html',{'products':products,'query':query})
 
 
-def review(request, id):
-    pro = get_object_or_404(product, id=id)
-    review = None  # Initialize review and rating to avoid errors
-    rating = None
+# def review(request, id):
+#     pro = get_object_or_404(product, id=id)
+#     review = None  # Initialize review and rating to avoid errors
+#     rating = None
     
 
-    if request.method == 'POST':
-        review = request.POST.get('review')
-        rating = request.POST.get('rating')
-        if review and rating:
-            pr = reviews.objects.create(
-                review=review,
-                rating=rating,
-                product=pro,
-                user=request.user
-            )
-            pr.save()
+#     if request.method == 'POST':
+#         review = request.POST.get('review')
+#         rating = request.POST.get('rating')
+#         if review and rating:
+#             pr = reviews.objects.create(
+#                 review=review,
+#                 rating=rating,
+#                 product=pro,
+#                 user=request.user
+#             )
+#             pr.save()
 
-    return render(request, 'review.html', {'product': pro})
+#     return render(request, 'postget.html', {'product': pro})
 # def show_rev(request):
 #     r=reviews.objects.all()
 #     # r.save()
 #     return render(request,'product_detail.html',{'r':r})
 
+def show_bag(request):
+    # Logic to display the contents of the bag or show an empty bag if no products are added
+    return render(request, 'show_bag.html', {'user': request.user})
+def ajax(request):
+    return render (request,'newpage.html')
+def ajax1(request):
+    return render(request,'Postget.html')
+def get(request):
+    return render(request,'get.html')
+def catpost(request):
+    return render(request,'categorypost.html')
+def productimages(request):
+    return render(request,'productget.html')
+def product_img(request):
+    return render(request,'productpost.html')

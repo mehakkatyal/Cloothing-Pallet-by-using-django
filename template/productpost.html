@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>product Post with  multiple images</title>
+</head>
+<body>
+    <script>
+        $(document).ready(()=>{
+            $('.submit_multimage').click(()=>{
+                var product_id=$('.product_id').val()
+                var files = $('#file')[0].files;
+                var formData=new FormData()
+                formData.append("product_id",product_id)
+                for(var i = 0;i<files.length;i++){
+                   formData.append("file",files[i])
+                }
+                console.log(formData)          
+                // console.log("clicked")
+                $.ajax({
+                    method:"POST",
+                    url:"http://localhost:8000/api/productimage/",
+                    data: formData,
+                    contentType: false,  
+                    processData: false,
+                    headers: {
+                        'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+                    },
+
+                    success: (res) => {
+                        console.log(res);  
+                        alert("Category created successfully!");
+                    },
+
+                    error:(err)=>{
+                        console.error(err)
+                        alert("An error occurred while uploading.");                       
+                    }         
+            })              
+            })
+
+        })
+    </script>
+    <h1>ADD product images through Ajax and javvascrispt</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="product_id">Product_id</label>
+        <input type="number" id="product_ids" class="product_id"><br><br>
+
+        <!-- <label for="image">Upload Images</label>
+        <input type="file" id="images" multiple="multiple"><br><br>  -->
+        <label for="cat_pic">Images:</label>
+        <input type="file" id="file" name="file" multiple /><br><br>
+
+        <!-- <div id="upload-status"></div> -->
+        <button  type="button" class="submit_multimage">Submit all Images </button>  
+</body>
+</html>

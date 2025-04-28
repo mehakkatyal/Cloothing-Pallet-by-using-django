@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Post Method</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h1>Category Post Method</h1>
+    <form id="category-method">
+        {% csrf_token %}
+        <label for="cat_name">Category Name:</label>
+        <input type="text" class="cat_name" name="cat_name"><br><br>
+        <label for="cat_pic">Images:</label>
+        <input type="file" id="file" name="file" multiple /><br><br>
+        <input type="button" value="Post Review" class="post_button">
+    </form>
+
+    <script>
+        $(document).ready(() => {
+            $('.post_button').click(() => {
+                const cat_name = $('.cat_name').val();
+
+                var files = $('#file')[0].files;
+                if (!cat_name || !files) {
+                    alert("Ple  ase provide both category name and an image.");
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('cat_name', cat_name);
+                // formData.append('file', file);
+
+                // multiple images 
+                // for(var i = 0;i<files.length;i++){
+                //     formData.append("file",files[i])
+                // }
+
+                // console.log(formData)
+
+                $.ajax({
+                    url: "http://localhost:8000/api/category/", 
+                    method: "POST",
+                    data: formData,
+                    contentType: false,  
+                    processData: false,
+                    headers: {
+                        'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success: (res) => {
+                        console.log(res);  
+                        alert("Category created successfully!");
+                    },
+                    error: (err) => {
+                        console.error(err);
+                        alert("An error occurred while uploading.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

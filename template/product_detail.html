@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
     <title>product_detail</title>
 </head>
+
 <body>
-   
-   
-    
+
+
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -111,7 +119,8 @@
                 align-items: center;
             }
 
-            .product-images, .product-info {
+            .product-images,
+            .product-info {
                 width: 100%;
                 margin-bottom: 20px;
             }
@@ -129,66 +138,74 @@
                 gap: 10px;
             }
         }
-        .p_name {
-           text-align: center;
-           font: bolder;
-           font-size: 16px;
-           font-weight: bold;
-           color: #2C3E50;
-           text-align: center;
-           margin-top: 50px;
-           margin-bottom: 30px;
-           text-transform: uppercase;
-           letter-spacing: 4px;
-           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-           transition: all 0.3s ease;
-        }
-        .fa-solid.fa-cart-shopping {
-             margin-right: 10px;
-        }
-        .row{
-        display: flex;
-        /* border-bottom: 1px solid grey; */
-        padding: 3px;
-        /* justify-content: space-between; */
-        /* width: 80%; */
-    }
-    .key{
-        font-weight: bold;
-        color: grey;
-        width: 20%;
-        /* text-align: right; */
-        /* margin-right: 20px; */
-    }
-    .value{
-        width: 25%;
-        font-size: 18px;
-        padding-left: 121px;
-    }
-    h3 {
-  padding-top: 22px;
-}
-h1{
-    text-align: center;
-           font: bolder;
-           font-size: 50px;
-           font-weight: bold;
-           color: #2C3E50;
-           text-align: center;
-           margin-top: 0px; 
-           margin-bottom: 10px;
-           text-transform: uppercase;
-           letter-spacing: 4px;
-           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-           transition: all 0.3s ease;
-        }
-        h2 {
-                margin-left: 126px;
-                margin-top: -43px;
-                /* margin-bottom: 14px; */
-}
 
-.review {
+        .p_name {
+            text-align: center;
+            font: bolder;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2C3E50;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .fa-solid.fa-cart-shopping {
+            margin-right: 10px;
+        }
+
+        .row {
+            display: flex;
+            /* border-bottom: 1px solid grey; */
+            padding: 3px;
+            /* justify-content: space-between; */
+            /* width: 80%; */
+        }
+
+        .key {
+            font-weight: bold;
+            color: grey;
+            width: 20%;
+            /* text-align: right; */
+            /* margin-right: 20px; */
+        }
+
+        .value {
+            width: 25%;
+            font-size: 18px;
+            padding-left: 121px;
+        }
+
+        h3 {
+            padding-top: 22px;
+        }
+
+        h1 {
+            text-align: center;
+            font: bolder;
+            font-size: 50px;
+            font-weight: bold;
+            color: #2C3E50;
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            margin-left: 126px;
+            margin-top: -43px;
+            /* margin-bottom: 14px; */
+        }
+
+        .review {
             background-color: #fff;
             /* width: 70px; */
             padding-right: 59px;
@@ -202,6 +219,7 @@ h1{
             border-radius: 14px;
             box-shadow: black;
         }
+
         .ra {
             background-color: #33b033;
             /* margin: 11px; */
@@ -213,113 +231,115 @@ h1{
             padding-bottom: 5px;
             padding-right: -4px;
             margin: 7px;
-}
+        }
     </style>
-</head>
-<body>
+    </head>
 
-<div class="container">
-    <h1>
-        Cloothing pallet
-    </h1>
-      <!-- <div class="p_name">
+    <body>
+
+        <div class="container">
+            <h1>
+                Cloothing pallet
+            </h1>
+            <!-- <div class="p_name">
           <h1>{{ product.product_name }}</h1>
       </div> -->
-    <div class="product-detail">
-        <!-- Product Images -->
-        <div class="p_name">
-             <h2>{{ product.product_name }}</h2>
-        </div>
-        <div class="product-images">
-            {% for image in product.images.all %}
-                <img src="{{ image.image.url }}" alt="{{ product.product_name }}">
-            {% endfor %}
-        </div>
+            <div class="product-detail">
+                <!-- Product Images -->
+                <div class="p_name">
+                    <h2>{{ product.product_name }}</h2>
+                </div>
+                <div class="product-images">
+                    {% for image in product.images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ product.product_name }}">
+                    {% endfor %}
+                </div>
 
-        <!-- Product Information -->
-        <div class="product-info">
-            <!-- <div class="p_name">
+                <!-- Product Information -->
+                <div class="product-info">
+                    <!-- <div class="p_name">
                <h2>{{ product.product_name }}</h2>
             </div> -->
-               <div class="p_dis">
-                   <p><strong>Product Description:</strong> {{ product.product_dis }}</p>
-               </div>
-                  <div class="p_color">
-                     <p><strong>Color:</strong> {{ product.product_color }}</p>
-                  </div>
-                    <div class="p_size">
-                       <p><strong>Size:</strong> {{ product.product_size }}</p>
+                    <div class="p_dis">
+                        <p><strong>Product Description:</strong> {{ product.product_dis }}</p>
                     </div>
-                       <div class="p_price">
-                          <p class="price">Price: ${{ product.product_price }}</p>
-                       </div>
-                       <div class="product_detail">
-                           <h3>Product Details</h3>
-                           <div class="row">
-                                <div class="key">
-                                    <p><strong>Type</strong></p>
-                                </div>
-                                <div class="value">
-                                    <p><strong>{{product.product_type}}</strong></p>
-                                </div>
-                           </div>
-                           <div class="row">
-                                <div class="key">
-                                    <p><strong>Seleve</strong></p>
-                                </div>
-                                <div class="value">
-                                    <p><strong>{{product.product_seleve}}</strong></p>
-                                </div>
-                          </div>
-                          <div class="row">
-                                <div class="key">
-                                    <p><strong>Fit</strong></p>
-                                </div>
-                                <div class="value">
-                                    <p><strong>{{product.product_fit}}</strong></p>
-                                </div>
-                          </div>
-                          <div class="row">
-                                <div class="key">
-                                    <p><strong>Pack of</strong></p>
-                                </div>
-                                <div class="value">
-                                    <p><strong>{{product.packof}}</strong></p>
-                                </div>
-                          </div>
-                          <div class="row">
-                                <div class="key">
-                                    <p><strong>Fabric</strong></p>
-                                </div>
-                                <div class="value">
-                                    <p><strong>{{product.fabric}}</strong></p>
-                                </div>
-                          </div>
-                          <div class="row">
+                    <div class="p_color">
+                        <p><strong>Color:</strong> {{ product.product_color }}</p>
+                    </div>
+                    <div class="p_size">
+                        <p><strong>Size:</strong> {{ product.product_size }}</p>
+                    </div>
+                    <div class="p_price">
+                        <p class="price">Price: ${{ product.product_price }}</p>
+                    </div>
+                    <div class="product_detail">
+                        <h3>Product Details</h3>
+                        <div class="row">
                             <div class="key">
-                                <p><strong>Stock</trong></p>
+                                <p><strong>Type</strong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.product_type}}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="key">
+                                <p><strong>Seleve</strong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.product_seleve}}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="key">
+                                <p><strong>Fit</strong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.product_fit}}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="key">
+                                <p><strong>Pack of</strong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.packof}}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="key">
+                                <p><strong>Fabric</strong></p>
+                            </div>
+                            <div class="value">
+                                <p><strong>{{product.fabric}}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="key">
+                                <p><strong>Stock</trong>
+                                </p>
                             </div>
                             <div class="value">
                                 <p><strong>{{product.stock}}</strong></p>
                             </div>
-                      </div>
+                        </div>
 
 
 
-        
-                       </div>
+
+                    </div>
 
 
 
-                          <div class="p_bu">
-                            
-                            <a href="/bag/{{product.id}}"><i class="fa-solid fa-cart-shopping"></i>Add to cart</a>
-                            <a href="/order_now/{{product.id}}">Buy Now</a>
-                          </div>   
+                    <div class="p_bu">
+
+                        <a href="/bag/{{product.id}}"><i class="fa-solid fa-cart-shopping"></i>Add to cart</a>
+                        <a href="/order_now/{{product.id}}">Buy Now</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="review">
+        <div class="review">
     <a href="/review/{{product.id}}">Reviews</a>
 {% if reviews %}
     {% for review in reviews %}
@@ -339,21 +359,71 @@ h1{
 {% endif %}
 </div>
     
+        <div class="show_review">
 
+        </div>
+        <div>
+            <button id="add_review">Add Review</button>
+        </div>
 
+    </body>
+    <script type="text/template" id="review-sr">
+        <div>
+            <form method="POST" id="review_form">
+                {% csrf_token %}
+                <label for="product_id">Product_id</label>
+                <input type="number" name="product_id" id="product_id"><br><br>
 
+                <label for="rating">Rating</label>
+                <input type="number" name="rating" id="rating"><br><br>
 
+                <label for="review">Review</label>
+                <input type="text" name="review" id="review">
 
+                <button type="submit" id="submit_review">Submit</button>
+            </form>
 
+        </div>
+
+    </script>
+
+    <script>
+        $(document).ready(() => {
   
+            $('#add_review').click(() => {
+                console.log('clicked');
+                $(".show_review").html(_.template($("#review-sr").html()));
+            });
+            $(document).on("click", '#submit_review',(event)=> {
+                event.preventDefault();
+                const review = $("#review_form input[name='review']").val();  // Corrected form selector
+                const rating = $("#review_form input[name='rating']").val();  // Corrected form selector
+                const product_id = $("#review_form input[name='product_id']").val();
 
+                const formData = new FormData();
+                formData.append("review", review);
+                formData.append("rating", rating);
+                formData.append("product_id", product_id);
 
+                // AJAX POST request to submit the review
+                $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:8000/api/review/",  // Make sure this URL points to your view that handles form submission.
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        "X-CSRFToken": $("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success:(res)=>{
+                        console.log("Review saved:", res);
+                    },            
+                });
+            });
+        });
 
-</body>
-</html>
+    </script>
+<div class="res">
 
-   
-
-
-</body>
+</div>
 </html>

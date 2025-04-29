@@ -33,10 +33,16 @@ class SubCategoryByCategoryViewset(ModelViewSet):
         sub = sub_cat.objects.filter(cat_id = _id)
         serializer=SubCategoryByCategory(sub,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+class ProductBysubcategoryViewet(ModelViewSet):
+    queryset=product.objects.all()
+    serializer_class=ProductBysubcategory
 
-
+    def retrieve(self, request, *args, **kwargs):
+        _id=kwargs['pk']
+        pro=product.objects.filter(sub_cat=_id)
+        serializers=ProductBysubcategory(pro,many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
         
-
 # fucntion for APIS
 class productViewset(ModelViewSet):
     queryset = product.objects.all()

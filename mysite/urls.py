@@ -23,6 +23,7 @@ router.register('review',reviewViewset)
 router.register('productimage',ProductImageviewset)
 # Retrieve function url
 router.register('subcategory_by_category',SubCategoryByCategoryViewset,basename='subcategory_by_category')
+router.register('product_by_subacategory',ProductBysubcategoryViewet,basename='product_by_subcategory')
 
 urlpatterns = [
     # genric view set url

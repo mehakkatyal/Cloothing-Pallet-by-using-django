@@ -46,3 +46,8 @@ class SubCategoryByCategory(serializers.ModelSerializer):
     class Meta:
         model = sub_cat
         fields = '__all__'
+class ProductBysubcategory(serializers.ModelSerializer):
+    images=ProductImageSerializer(many=True,read_only=True)
+    class Meta:
+        model=product
+        fields = ['product_name','images']

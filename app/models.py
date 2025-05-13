@@ -50,6 +50,7 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.ProductDetail.product.product_name}"
+    
 class ordernow(models.Model):
     PAYMENT_METHODS=[
         ('credit card','credit card'),
@@ -75,6 +76,8 @@ class ordernow(models.Model):
     stock = models.IntegerField(null=True, blank=True)
     def __str__(self):
         return str.title()
+    
+
 class bag(models.Model):
     product=models.ForeignKey(product,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)

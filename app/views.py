@@ -12,7 +12,31 @@ from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.generics import RetrieveAPIView
+from .serializers import ProductBysubcategory
+from rest_framework import permissions
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user = request.user
+    try:
+        profile = user.userprofile  # ✅ Correct way to access OneToOne
+        return Response({
+            "username": user.username,
+            "is_vendor": profile.is_vendor
+        })
+    except userprofile.DoesNotExist:
+        return Response({
+            "username": user.username,
+            "is_vendor": False  # default or fallback
+        })
+
+
 # Genric view set 
+
 class CatBySubCat(ListAPIView):
     queryset = sub_cat.objects.all()
     serializer_class = SubCategoryByCategory
@@ -42,6 +66,10 @@ class ProductBysubcategoryViewet(ModelViewSet):
         pro=product.objects.filter(sub_cat=_id)
         serializers=ProductBysubcategory(pro,many=True)
         return Response(serializers.data,status=status.HTTP_200_OK)
+# class ProductDetailView(RetrieveAPIView):
+#     queryset = product.objects.all()
+#     serializer_class =ProductBysubcategory 
+#     lookup_field = 'id' 
         
 # fucntion for APIS
 class productViewset(ModelViewSet):
@@ -52,14 +80,82 @@ class subcatViewset(ModelViewSet):
     queryset=sub_cat.objects.all()
     serializer_class=subcatserializer
 
+
+class orderViewset(ModelViewSet):
+    queryset=ordernow.objects.all()
+    serializer_class=OrderSeriaizer
+
+    def create(self, request, *args, **kwargs):
+      
+      pro_id=request.data.get("pro_id")
+      products=product.objects.get(id=pro_id)
+      quantity=request.data.get('quantity',1)
+      shipping_adress=request.data.get("shipping_adress")
+      user_id=request.data.get("user_id")
+
+      order = ordernow.objects.create(
+          product=product.product_name,
+          price=product.product_price,
+          quantity=quantity,
+          shipping_adress=shipping_adress,
+          delivery_date = datetime.today().date(),
+          user_id=user_id  
+      )
+
+      order.save()
+      product.stock -= quantity
+      product.is_available = product.stock > 0
+      product.save()
+        
+      serializer = OrderSeriaizer(order)
+      return Response(serializer.data)
+
+
+
 class UserViewset(ModelViewSet):
     queryset= User.objects.all()
-    serializer_class=Userserializer
+    serializer_class=UserSerializer
+    permission_classes = (permissions.AllowAny,) 
+    # permission_classes=(permissions.AllowAny,)
+    def create(self,request,*args,**kwargs):
+        data=request.data
+        username=data['username']
+        first_name=data['first_name']
+        last_name=data['last_name']
+        email=data['email']
+        password=data['password']
+        phonenumber=data['phonenumber'] 
+        # is_vendor=data.get['is_vendor']
+        is_vendor = data.get('is_vendor')
+
+        if User.objects.filter(username=username).exists():
+            return Response({'error':"username already exists"},status=status.HTTP_400_BAD_REQUEST)
+        user=User.objects.create(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password
+        )
+        userprofile.objects.create(
+            user=user,
+            phonenumber=phonenumber,
+            is_vendor=is_vendor
+        )
+
+        # serializer=self.get_serializer(user,context={'request':request})
+        serializer=UserSerializer(user)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+class UserprofileViewset(ModelViewSet):
+    queryset=userprofile.objects.all()
+    serializer_class=Userprofileserializer
+
 
 #(Retrieve function)dynamic url api
 
 class SubCategoryByCategoryViewset(ModelViewSet):
-    queryset = sub_cat.objects.all()
+    queryset = sub_cat.objects.all()    
     serializer_class = SubCategoryByCategory
 
     def retrieve(self, request, *args, **kwargs):
@@ -124,25 +220,18 @@ class reviewViewset(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = cat.objects.all()
     serializer_class = CategorySerializer
-    # breakpoint()
     def create(self,request,*args,**kwargs):
         cat_name=request.data.get('cat_name')
-        cat_pic=request.FILES.get('file')
-
+        cat_pic=request.FILES.get('cat_pic')
         category=cat.objects.create(
             cat_name=cat_name,
             cat_pic=cat_pic,
-            user_id=14
+            user_id=request.user.id
         )
         category.save()
 
         c=CategorySerializer(category)
-        return Response(c.data,status=status.HTTP_201_CREATED)
-
-
-
-
-    
+        return Response(c.data,status=status.HTTP_201_CREATED)  
 def homepage(request):
     category=cat.objects.all()
     return render(request,'index.html',{'cat':category,'user':request.user})
